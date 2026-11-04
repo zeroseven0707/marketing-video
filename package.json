@@ -1,0 +1,34 @@
+{
+  "name": "mihape-marketing-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Video iklan Mihape 9:16 (Remotion)",
+  "scripts": {
+    "sync": "node scripts/sync-public.mjs",
+    "audio": "node scripts/buat-audio.mjs",
+    "prestudio": "npm run sync",
+    "studio": "remotion studio",
+    "prerender": "npm run sync",
+    "render": "remotion render MihapeLaunchAd renders/mihape-launch-ad.mp4",
+    "render:preview": "npm run sync && remotion render MihapeLaunchAd renders/pratinjau.mp4 --scale=0.5",
+    "still": "remotion still MihapeLaunchAd renders/still.png",
+    "typecheck": "tsc --noEmit",
+    "qa": "sh scripts/qa-stills.sh"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.534",
+    "@remotion/google-fonts": "4.0.534",
+    "@remotion/transitions": "4.0.534",
+    "lucide-react": "0.469.0",
+    "qrcode": "1.5.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.534",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/qrcode": "1.5.5",
+    "@types/react": "19.0.0",
+    "typescript": "5.6.3"
+  }
+}

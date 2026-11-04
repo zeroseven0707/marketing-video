@@ -1,0 +1,6 @@
+node_modules
+public
+renders/*.png
+renders/*.mp4
+renders/qa
+.DS_Store
