@@ -15,7 +15,11 @@ export const S07_OFFER = 44;
 export const S07_ACCEPT = 88;
 
 // Driver: aktifkan Online, tawaran masuk, terima; lalu motor melaju di jalan kampung.
-export const Scene07Driver: React.FC = () => {
+export const Scene07Driver: React.FC<{kicker?: string | null; headline?: readonly string[]; highlight?: [number, number][]}> = ({
+  kicker = copy.S07.kicker,
+  headline = copy.S07.headline,
+  highlight = [[0, 1]],
+}) => {
   const frame = useCurrentFrame();
   const enter = prog(frame, 0, 26, EASE);
   const online = prog(frame, S07_TOGGLE, 8);
@@ -79,7 +83,7 @@ export const Scene07Driver: React.FC = () => {
         <Tap x={329} y={392} at={S07_TOGGLE} frame={frame} />
         <Tap x={266} y={755} at={S07_ACCEPT} frame={frame} />
       </Phone>
-      <Headline lines={copy.S07.headline} kicker={copy.S07.kicker} delay={6} size={76} highlight={[[0, 1]]} />
+      <Headline lines={headline} kicker={kicker ?? undefined} delay={6} size={76} highlight={highlight} />
       {phoneOut < 0.5 && <SimTag delay={24} />}
     </AbsoluteFill>
   );

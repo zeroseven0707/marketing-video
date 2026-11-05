@@ -12,7 +12,11 @@ import {copy} from '../config/copy';
 import {brand, font} from '../config/theme';
 
 // Lacak driver: marker berdenyut bergerak di rute pink, kamera mendekat ke peta.
-export const Scene08Tracking: React.FC = () => {
+export const Scene08Tracking: React.FC<{headline?: readonly string[]; highlight?: [number, number][]; chips?: readonly string[]}> = ({
+  headline = copy.S08.headline,
+  highlight = [[1, 0]],
+  chips: chipLabels = copy.S08.chips,
+}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const progress = interpolate(frame, [10, 168], [0.08, 0.86], {...CLAMP, easing: EASE_INOUT});
@@ -30,7 +34,7 @@ export const Scene08Tracking: React.FC = () => {
         <Phone width={600} x={540} y={1240} rotateX={interpolate(frame, [0, 168], [10, 4])} rotateY={interpolate(frame, [0, 168], [-8, 8])} captureKey="customerTracking">
           <Tracking frame={frame} progress={progress} showRoute={showRoute} />
         </Phone>
-        {copy.S08.chips.map((c, i) => {
+        {chipLabels.map((c, i) => {
           const Icon = icons[i];
           return (
             <div
@@ -62,7 +66,7 @@ export const Scene08Tracking: React.FC = () => {
           );
         })}
       </Camera>
-      <Headline lines={copy.S08.headline} delay={4} size={76} highlight={[[1, 0]]} />
+      <Headline lines={headline} delay={4} size={76} highlight={highlight} />
       <SimTag delay={20} />
     </AbsoluteFill>
   );

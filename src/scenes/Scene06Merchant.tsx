@@ -14,7 +14,11 @@ import {brandFiles} from '../config/media';
 export const S06_TAP = 112;
 
 // Warung menerima pesanan: HP Mitra berdering di depan warung, pemilik menekan "Terima".
-export const Scene06Merchant: React.FC = () => {
+export const Scene06Merchant: React.FC<{kicker?: string | null; headline?: readonly string[]; highlight?: [number, number][]}> = ({
+  kicker = copy.S06.kicker,
+  headline = copy.S06.headline,
+  highlight = [[0, 1]],
+}) => {
   const frame = useCurrentFrame();
   const enter = prog(frame, 0, 30, EASE);
   const ringing = frame < S06_TAP;
@@ -34,7 +38,7 @@ export const Scene06Merchant: React.FC = () => {
         </Layer>
       </Camera>
       <CinematicGrade strength={0.3} />
-      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(255,247,250,0.94) 0%, rgba(255,247,250,0.75) 26%, rgba(255,247,250,0) 42%)'}} />
+      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(255,247,250,0.98) 0%, rgba(255,247,250,0.97) 33%, rgba(255,247,250,0) 50%)'}} />
       <Phone
         width={560}
         x={interpolate(enter, [0, 1], [1300, 560]) + jx}
@@ -55,7 +59,7 @@ export const Scene06Merchant: React.FC = () => {
       <div style={{position: 'absolute', left: 40, top: 1700, opacity: prog(frame, 30, 16) * 0.95}}>
         <Logo src={brandFiles.mitraWordmark} width={230} />
       </div>
-      <Headline lines={copy.S06.headline} kicker={copy.S06.kicker} delay={6} size={76} highlight={[[0, 1]]} />
+      <Headline lines={headline} kicker={kicker ?? undefined} delay={6} size={76} highlight={highlight} />
       <SimTag delay={30} />
     </AbsoluteFill>
   );

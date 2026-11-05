@@ -18,7 +18,12 @@ const CHIP = [
 ];
 
 // Beranda aplikasi: HP berputar masuk (3D), ikon layanan muncul, empat chip layanan melayang keluar.
-export const Scene04Home: React.FC = () => {
+// Copy bisa diganti lewat props (video pelanggan); default = video launching.
+export const Scene04Home: React.FC<{headline?: readonly string[]; highlight?: [number, number][]; services?: readonly string[]}> = ({
+  headline = copy.S04.headline,
+  highlight = [[1, 2]],
+  services = copy.S04.services,
+}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const enter = prog(frame, 0, 34, EASE);
@@ -70,7 +75,7 @@ export const Scene04Home: React.FC = () => {
       })}
       {/* Label layanan berjajar di bawah judul */}
       <div style={{position: 'absolute', left: 80, right: 80, top: 560, display: 'flex', flexWrap: 'wrap', gap: 14}}>
-        {copy.S04.services.map((s, i) => {
+        {services.map((s, i) => {
           const t = prog(frame, 60 + i * 5, 14);
           return (
             <div key={s} style={{fontFamily: font.family, fontSize: 30, fontWeight: 700, color: brand.pinkDark, background: brand.pinkSoft, border: `2px solid ${brand.pinkBorder}`, padding: '8px 20px', borderRadius: 999, opacity: t, transform: `translateY(${(1 - t) * 16}px)`}}>
@@ -79,7 +84,7 @@ export const Scene04Home: React.FC = () => {
           );
         })}
       </div>
-      <Headline lines={copy.S04.headline} delay={8} size={80} highlight={[[1, 2]]} />
+      <Headline lines={headline} delay={8} size={80} highlight={highlight} />
       <SimTag delay={30} />
     </AbsoluteFill>
   );

@@ -33,6 +33,7 @@ export const FootageSlot: React.FC<{sceneId: string; children: React.ReactNode}>
 export const SimTag: React.FC<{delay?: number; dark?: boolean; y?: number}> = ({delay = 6, dark, y = 214}) => {
   const frame = useCurrentFrame();
   const t = prog(frame, delay, 14);
+  if (!copy.simTag) return null;
   return (
     <div style={{position: 'absolute', left: 0, right: 0, top: y, display: 'flex', justifyContent: 'center', opacity: t * 0.9}}>
       <div

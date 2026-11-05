@@ -107,7 +107,8 @@ Skala tipografi aplikasi (`CU/lib/theme.ts:42-49`): h1 26/800 (letter-spacing âˆ
 ## 6. Tagline dan copy resmi (kutipan asli)
 
 ### Tagline
-- **"Mudah, Cepat, Nyaman"**: splash dan login aplikasi (`CU/components/SplashScreen.tsx:12`; `CU/app/(auth)/login.tsx:54`), footer web (`BE/resources/views/layouts/site.blade.php:55`).
+- **"Gampil, Gancang, Merenah"**: slogan resmi dari pemilik produk (Sunda: mudah, cepat, nyaman). Dipakai di semua video.
+- **"Mudah, Cepat, Nyaman"** (versi lama di aplikasi): splash dan login aplikasi (`CU/components/SplashScreen.tsx:12`; `CU/app/(auth)/login.tsx:54`), footer web (`BE/resources/views/layouts/site.blade.php:55`).
 - **"Semua kebutuhan harianmu, cukup satu ketukan."**: H1 landing (`BE/resources/views/welcome.blade.php:21`).
 
 ### Headline landing (`BE/resources/views/welcome.blade.php`)

@@ -14,18 +14,27 @@ import {brand, font} from '../config/theme';
 const TAPS = {add0: {x: 104, y: 492, at: 28}, plus0: {x: 164, y: 492, at: 42}, add2: {x: 104, y: 717, at: 56}, plus2: {x: 164, y: 717, at: 68}, checkout: {x: 318, y: 786, at: 86}, confirm: {x: 284, y: 788, at: 170}};
 
 // Pesan makanan: tambah menu ke keranjang, lanjut ke ringkasan pembayaran yang transparan.
-export const Scene05OrderFood: React.FC = () => {
+// `callout` bisa beberapa baris (daftar centang). `hold` = frame tambahan sebelum tombol "Pesan Sekarang"
+// ditekan, agar callout yang panjang sempat terbaca (durasi scene ikut ditambah `hold`).
+export const Scene05OrderFood: React.FC<{headline?: readonly string[]; highlight?: [number, number][]; callout?: string | readonly string[]; hold?: number}> = ({
+  headline = copy.S05.headline,
+  highlight: headlineHighlight = [[1, 1]],
+  callout: calloutText = copy.S05.callout,
+  hold: H = 0,
+}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const qty = [frame >= TAPS.plus0.at ? 2 : frame >= TAPS.add0.at ? 1 : 0, 0, frame >= TAPS.plus2.at ? 2 : frame >= TAPS.add2.at ? 1 : 0, 0];
   const cartT = prog(frame, TAPS.add0.at, 14);
   // Pindah layar di dalam HP: toko -> checkout (dorong dari kanan).
   const swap = prog(frame, 94, 18, EASE_INOUT);
-  const highlight = interpolate(frame, [118, 130, 160, 168], [0, 1, 1, 0], CLAMP);
+  const highlight = interpolate(frame, [118, 130, 160 + H, 168 + H], [0, 1, 1, 0], CLAMP);
   const scrollY = interpolate(frame, [104, 126], [0, 50], {...CLAMP, easing: EASE});
   // HP bergeser ke kiri memberi ruang untuk callout.
-  const shiftX = interpolate(frame, [112, 130, 168, 180], [0, -150, -150, 0], {...CLAMP, easing: EASE});
-  const confirmPressed = interpolate(frame, [168, 171, 178], [0, 1, 0], CLAMP);
+  const shiftX = interpolate(frame, [112, 130, 168 + H, 180 + H], [0, -150, -150, 0], {...CLAMP, easing: EASE});
+  const confirmPressed = interpolate(frame, [168 + H, 171 + H, 178 + H], [0, 1, 0], CLAMP);
+  const taps = {...TAPS, confirm: {...TAPS.confirm, at: TAPS.confirm.at + H}};
+  const lines = typeof calloutText === 'string' ? [calloutText] : calloutText;
   const callout = pop(frame, fps, 122, 18);
   return (
     <AbsoluteFill>
@@ -38,7 +47,7 @@ export const Scene05OrderFood: React.FC = () => {
           <div style={{position: 'absolute', inset: 0, transform: `translateX(${(1 - swap) * 390}px)`, boxShadow: '-12px 0 30px rgba(0,0,0,0.12)'}}>
             <Checkout highlight={highlight} confirmPressed={confirmPressed} scrollY={scrollY} />
           </div>
-          {Object.values(TAPS).map((t, i) => (
+          {Object.values(taps).map((t, i) => (
             <Tap key={i} x={t.x} y={t.y} at={t.at} frame={frame} />
           ))}
         </Phone>
@@ -50,7 +59,7 @@ export const Scene05OrderFood: React.FC = () => {
             top: 1180,
             transform: `scale(${callout}) translateY(${(1 - callout) * 20}px)`,
             transformOrigin: 'left center',
-            opacity: callout * (1 - prog(frame, 176, 10)),
+            opacity: callout * (1 - prog(frame, 176 + H, 10)),
             background: brand.ink,
             color: '#fff',
             fontFamily: font.family,
@@ -63,11 +72,15 @@ export const Scene05OrderFood: React.FC = () => {
             boxShadow: '0 24px 50px rgba(42,18,32,0.3)',
           }}
         >
-          <span style={{color: brand.pinkLight}}>✓ </span>
-          {copy.S05.callout}
+          {lines.map((line, i) => (
+            <div key={line} style={{marginTop: i ? 14 : 0, opacity: prog(frame, 122 + i * 8, 10)}}>
+              <span style={{color: brand.pinkLight}}>✓ </span>
+              {line}
+            </div>
+          ))}
         </div>
       </Camera>
-      <Headline lines={copy.S05.headline} delay={4} size={80} highlight={[[1, 1]]} />
+      <Headline lines={headline} delay={4} size={80} highlight={headlineHighlight} />
       <SimTag delay={20} />
     </AbsoluteFill>
   );

@@ -1,7 +1,14 @@
 # Mihape Launch Ad (Remotion)
 
-Video iklan Mihape 60 detik, 1080×1920 (9:16), 30 fps, H.264, untuk TikTok, Reels, dan Shorts.
-Hasil render: `renders/mihape-launch-ad.mp4`.
+Video iklan Mihape 1080×1920 (9:16), 30 fps, H.264, untuk TikTok, Reels, dan Shorts.
+
+| Video | Komposisi | Durasi | Hasil render |
+|---|---|---|---|
+| Launching (gabungan) | `MihapeLaunchAd` | ±54 dtk | `renders/mihape-launch-ad.mp4` |
+| Pelanggan | `MihapeCustomerAd` | 30 dtk | `renders/mihape-pelanggan-30s.mp4` |
+| Mitra (driver + toko) | `MihapeMitraAd` | 30 dtk | `renders/mihape-mitra-30s.mp4` |
+
+Naskah video pelanggan dan mitra: `docs/VIDEO_SCRIPT_SEGMENTED.md`.
 
 Project ini terisolasi. Tidak ada file di `mihp-backend`, `mihp-customer`, atau `mihape-mitra` yang diubah, dan aset merek hanya disalin.
 
@@ -12,7 +19,10 @@ cd marketing-video
 npm install
 npm run audio     # (opsional) buat ulang musik & SFX orisinal ke assets/audio/
 npm run studio    # pratinjau di browser (otomatis menyalin assets/ -> public/)
-npm run render    # render final -> renders/mihape-launch-ad.mp4
+npm run render              # video launching -> renders/mihape-launch-ad.mp4
+npm run render:pelanggan    # video pelanggan -> renders/mihape-pelanggan-30s.mp4
+npm run render:mitra        # video mitra     -> renders/mihape-mitra-30s.mp4
+npm run render:all          # ketiganya
 ```
 
 Lainnya:
@@ -20,7 +30,7 @@ Lainnya:
 - `npm run typecheck`: cek TypeScript.
 - `npm run qa -- S04Home:120 S06Merchant:70`: render still dan lembar kontak ke `renders/qa/sheet.png`.
 
-Di Studio, komposisi `MihapeLaunchAd` adalah video utama. Folder **Scenes** berisi pratinjau tiap scene (S01Opening … S11Closing) lengkap dengan SFX dan musik pada posisinya.
+Di Studio, ketiga komposisi utama ada di atas. Folder **Scenes**, **Scenes-Pelanggan**, dan **Scenes-Mitra** berisi pratinjau tiap scene lengkap dengan SFX dan musik pada posisinya.
 
 ## Struktur
 
@@ -51,8 +61,8 @@ src/
 
 | Ingin mengubah | Edit |
 |---|---|
-| Teks di layar | `src/config/copy.ts` |
-| Durasi scene, urutan, jenis transisi | `src/config/scenes.ts` (total durasi dihitung otomatis) |
+| Teks di layar | `src/config/copy.ts` (`S..` launching, `C..` pelanggan, `M..` mitra) |
+| Durasi scene, urutan, jenis transisi | `src/config/scenes.ts`: `scenes`, `customerScenes`, `mitraScenes` (total durasi dihitung otomatis) |
 | Warna, font, area aman | `src/config/theme.ts` |
 | Nama toko, menu, harga, nama driver contoh | `src/config/demo.ts` |
 | Volume musik/SFX/VO, fade, isyarat SFX | `src/config/audio.ts` |
@@ -76,7 +86,7 @@ Jenis transisi yang tersedia: `dissolve`, `speedWipe`, `zoomBlur`, `push`, `push
 3. Musik otomatis diredam (`duckWithVoiceover`). Jalankan `npm run render`.
 
 ## Kejujuran konten
-- Layar aplikasi adalah **rekonstruksi dari source code**, karena repo tidak berisi screenshot. Setiap scene UI diberi label "Ilustrasi tampilan aplikasi · data contoh".
+- Layar aplikasi adalah **rekonstruksi dari source code**, karena repo tidak berisi screenshot. Label "Ilustrasi tampilan aplikasi · data contoh" dimatikan atas permintaan pemilik produk (`copy.simTag = null`); isi lagi untuk menampilkannya.
 - Data toko, menu, harga, driver, plat, dan PIN adalah contoh (`src/config/demo.ts`). Angka pendapatan driver disamarkan.
 - Ilustrasi kampung bersifat generik dan tidak diklaim sebagai lokasi tertentu.
 - Musik dan SFX orisinal sintetis. Satu-satunya suara produk adalah nada dering asli Mihape Mitra.

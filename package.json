@@ -11,6 +11,9 @@
     "prerender": "npm run sync",
     "render": "remotion render MihapeLaunchAd renders/mihape-launch-ad.mp4",
     "render:preview": "npm run sync && remotion render MihapeLaunchAd renders/pratinjau.mp4 --scale=0.5",
+    "render:pelanggan": "npm run sync && remotion render MihapeCustomerAd renders/mihape-pelanggan-30s.mp4",
+    "render:mitra": "npm run sync && remotion render MihapeMitraAd renders/mihape-mitra-30s.mp4",
+    "render:all": "npm run render && npm run render:pelanggan && npm run render:mitra",
     "still": "remotion still MihapeLaunchAd renders/still.png",
     "typecheck": "tsc --noEmit",
     "qa": "sh scripts/qa-stills.sh"

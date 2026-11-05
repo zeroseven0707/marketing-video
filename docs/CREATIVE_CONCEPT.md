@@ -15,7 +15,7 @@
 Di kampung, rumah, warung, dan jalan sebenarnya dekat, tetapi urusan sehari-hari tetap menyita waktu. Mihape menyambungkan ketiganya: warga memesan, warung lokal menerima, driver lokal mengantar. Uang dan layanan berputar di sekitar warga sendiri.
 
 ## Struktur tiga babak
-1. **Dunia warga** (S01–S02): pagi di kampung, lalu tiga kebutuhan sehari-hari.
+1. **Peluncuran** (S01): fajar di kampung, "Karya anak daerah · Dari daerah, untuk daerah.", lalu pin merek mendarat di kampung dengan "Kini hadir untuk kampung kita."
 2. **Mihape bekerja** (S03–S09): merek, beranda, pesan makanan, warung menerima, driver mengantar, lacak, selesai dengan scan QR. Alurnya mengikuti alur Flow B di kode, yaitu pesanan dari toko mandiri ([API_AND_BUSINESS_LOGIC](API_AND_BUSINESS_LOGIC.md)).
 3. **Ekosistem & ajakan** (S10–S11): lingkaran warga, warung, dan driver, lalu logo dan CTA.
 
@@ -23,7 +23,7 @@ Di kampung, rumah, warung, dan jalan sebenarnya dekat, tetapi urusan sehari-hari
 - **Dua lapisan.** Lapisan dunia nyata berupa ilustrasi kampung yang hangat: sawah terasering, bukit berlapis, rumah genteng, pohon kelapa, dan jalan desa. Lapisan ini bisa diganti footage asli. Lapisan teknologi memakai putih dan pink merek.
 - **Motif dari logo.** Tiga garis kecepatan huruf "M" dipakai untuk transisi speed-wipe, dan pin lokasi dari titik huruf "i" dipakai untuk transisi pin-iris.
 - **Tipografi.** Plus Jakarta Sans 600–800, kinetik kata demi kata dan huruf demi huruf, dengan gradien merek untuk kata kunci.
-- **UI.** Layar aplikasi direkonstruksi dari source code, termasuk label, warna, dan tata letak. Setiap scene UI diberi label "Ilustrasi tampilan aplikasi · data contoh".
+- **UI.** Layar aplikasi direkonstruksi dari source code, termasuk label, warna, dan tata letak. Label "Ilustrasi tampilan aplikasi · data contoh" kini dimatikan atas permintaan pemilik produk (`copy.simTag`).
 - **Gerak.** Satu keluarga easing `cubic-bezier(.22,1,.36,1)`, sama dengan landing. Kamera virtual dengan parallax, HP berotasi 3D, dan ketukan jari dengan riak.
 
 ## Yang sengaja dihindari

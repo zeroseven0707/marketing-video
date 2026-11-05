@@ -17,7 +17,11 @@ export const S09_FOUND = 86;
 export const S09_SUCCESS = 98;
 
 // Penyelesaian: HP pelanggan memindai QR di HP driver, lalu "Pesanan Selesai".
-export const Scene09Complete: React.FC = () => {
+export const Scene09Complete: React.FC<{headline?: readonly string[]; highlight?: [number, number][]; sub?: string}> = ({
+  headline = copy.S09.headline,
+  highlight = [[1, 0], [1, 1]],
+  sub = copy.S09.sub,
+}) => {
   const frame = useCurrentFrame();
   const enter = prog(frame, 0, 30, EASE);
   const meet = prog(frame, 30, 40, EASE_INOUT);
@@ -67,9 +71,9 @@ export const Scene09Complete: React.FC = () => {
           opacity: burst > 0 ? (1 - burst) * 0.6 : 0,
         }}
       />
-      <Headline lines={copy.S09.headline} delay={4} size={84} highlight={[[1, 0], [1, 1]]} />
+      <Headline lines={headline} delay={4} size={84} highlight={highlight} />
       <div style={{position: 'absolute', left: 80, right: 80, top: 520, opacity: interpolate(frame, [0, 1], [1, 1], CLAMP)}}>
-        <WordReveal text={copy.S09.sub} delay={S09_SUCCESS + 6} size={48} weight={700} color={brand.text2} />
+        <WordReveal text={sub} delay={S09_SUCCESS + 6} size={48} weight={700} color={brand.text2} />
       </div>
       <SimTag delay={20} />
     </AbsoluteFill>
